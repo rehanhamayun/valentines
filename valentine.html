@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Be My Valentine 💖</title>
+
+<style>
+  body {
+    margin: 0;
+    font-family: system-ui, -apple-system, sans-serif;
+    background: linear-gradient(135deg, #ffe6f0, #fff0f5);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  .container {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    padding: 20px;
+  }
+
+  h1 {
+    color: #d63384;
+    font-size: 2rem;
+    margin-bottom: 40px;
+  }
+
+  .buttons {
+    position: relative;
+    height: 200px;
+  }
+
+  button {
+    padding: 12px 24px;
+    font-size: 1rem;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .yesBtn {
+    background: #ff4d88;
+    color: white;
+    position: relative;
+  }
+
+  .yesBtn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(255, 77, 136, 0.5);
+  }
+
+  .noBtn {
+    background: #999;
+    color: white;
+    position: absolute;
+  }
+
+  .message {
+    font-size: 1.4rem;
+    color: #c2185b;
+    display: none;
+    margin-top: 20px;
+  }
+
+  .heart {
+    position: absolute;
+    font-size: 24px;
+    animation: floatUp 4s linear forwards;
+  }
+
+  @keyframes floatUp {
+    0% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(-800px);
+      opacity: 0;
+    }
+  }
+
+  @media (max-width: 600px) {
+    h1 {
+      font-size: 1.5rem;
+    }
+  }
+</style>
+</head>
+
+<body>
+
+<div class="container" id="container">
+  <h1>Will you be my Valentine? 💖</h1>
+
+  <div class="buttons" id="buttons">
+    <button class="yesBtn" id="yesBtn">Yes 💘</button>
+    
+    
+
+
+    <button class="noBtn" id="noBtn">No 💔</button>
+  </div>
+
+  <div class="message" id="message">
+    Best decision ever. I love you MARYAM REHAN ❤️ YOU'RE THE BEST!
+  </div>
+</div>
+
+<script>
+const noBtn = document.getElementById("noBtn");
+const yesBtn = document.getElementById("yesBtn");
+const container = document.getElementById("container");
+const message = document.getElementById("message");
+
+let noPosition = { x: 150, y: 0 };
+noBtn.style.left = noPosition.x + "px";
+noBtn.style.top = noPosition.y + "px";
+
+function moveNoButton() {
+  const containerRect = container.getBoundingClientRect();
+  const btnRect = noBtn.getBoundingClientRect();
+
+  const maxX = containerRect.width - btnRect.width;
+  const maxY = containerRect.height - btnRect.height;
+
+  const newX = Math.random() * maxX;
+  const newY = Math.random() * maxY;
+
+  noBtn.style.left = newX + "px";
+  noBtn.style.top = newY + "px";
+}
+
+document.addEventListener("mousemove", (e) => {
+  const rect = noBtn.getBoundingClientRect();
+  const distance = Math.sqrt(
+    Math.pow(e.clientX - (rect.left + rect.width / 2), 2) +
+    Math.pow(e.clientY - (rect.top + rect.height / 2), 2)
+  );
+
+  if (distance < 100) {
+    moveNoButton();
+  }
+});
+
+yesBtn.addEventListener("click", () => {
+  message.style.display = "block";
+  document.querySelector("h1").style.display = "none";
+  document.getElementById("buttons").style.display = "none";
+
+  createHearts();
+});
+
+function createHearts() {
+  for (let i = 0; i < 30; i++) {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerText = "❤️";
+
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.bottom = "0px";
+
+    heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+      heart.remove();
+    }, 4000);
+  }
+}
+</script>
+
+</body>
+</html>
